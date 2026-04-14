@@ -2,6 +2,13 @@ import numpy as np
 import tensorflow as tf
 
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(256, activation="relu", input_shape=(12,))
-    
+    tf.keras.Input(shape=(12,)),
+    tf.keras.layers.Dense(256, activation="relu"),
+    tf.keras.layers.Dense(16, activation="linear")
 ])
+
+
+def predict_action(features: np.ndarray):
+    print("feature shape:", features.shape)
+    q_values = model(features.reshape(1, -1), training=False).numpy()
+    print("Q-values:", q_values)

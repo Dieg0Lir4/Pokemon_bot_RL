@@ -1,9 +1,9 @@
 import asyncio
-from bots.first_bot.first_bot import FirstMovePlayer
+from bots.simple_12f_bot.simple_12f_bot import Simple12fBot
 from enviorment.team.my_team import MY_TEAM
 
 async def main():
-    bot1 = FirstMovePlayer(team=MY_TEAM, battle_format="gen9championsvgc2026regma")
+    bot1 = Simple12fBot(team=MY_TEAM, battle_format="gen9championsvgc2026regma")
 
     await bot1.send_challenges("Ardilla45", n_challenges=1)
 
