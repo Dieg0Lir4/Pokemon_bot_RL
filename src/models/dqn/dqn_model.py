@@ -16,6 +16,5 @@ def build_model():
     return model
 
 def predict_action(model, features: np.ndarray) -> np.ndarray:
-    print("feature shape:", features.shape)
     q_values = model(features.reshape(1, -1), training=False).numpy()
     return q_values[0]
