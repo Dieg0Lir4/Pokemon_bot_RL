@@ -8,7 +8,7 @@ model = tf.keras.Sequential([
 ])
 
 
-def predict_action(features: np.ndarray):
+def predict_action(features: np.ndarray) -> np.ndarray:
     print("feature shape:", features.shape)
     q_values = model(features.reshape(1, -1), training=False).numpy()
-    print("Q-values:", q_values)
+    return q_values[0]
