@@ -29,13 +29,6 @@ def get_features(battle: DoubleBattle) -> np.ndarray:
     m1_p1, m2_p1, m3_p1, m4_p1 = move_vector_p1
     m1_p2, m2_p2, m3_p2, m4_p2 = move_vector_p2
 
-    print("Features:", [
-        hp_own_1, hp_own_2,
-        hp_opp_1, hp_opp_2,
-        m1_p1, m2_p1, m3_p1, m4_p1,
-        m1_p2, m2_p2, m3_p2, m4_p2,
-    ])
-
     return np.array([
         hp_own_1, hp_own_2,
         hp_opp_1, hp_opp_2,

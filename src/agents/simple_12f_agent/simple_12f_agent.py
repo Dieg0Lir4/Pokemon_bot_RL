@@ -31,6 +31,7 @@ class DQNAgent:
 
     def replay(self):
         if len(self.memory) < self.batch_size:
+            print(f"Buffer insuficiente: {len(self.memory)}/{self.batch_size}")
             return
         
         minibatch = random.sample(self.memory, self.batch_size)
@@ -52,6 +53,8 @@ class DQNAgent:
         q_values[np.arange(self.batch_size), actions_p2 + 8] = target_p2
 
         self.model.fit(states, q_values, epochs=1, verbose=0)
+        print(f"Modelo actualizado | epsilon: {self.epsilon:.3f}")
+
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay

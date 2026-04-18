@@ -35,40 +35,23 @@ class Simple12fBot(RandomPlayer):
             self.last_action_p1 = action_p1
             self.last_action_p2 = action_p2
 
-            print(f"Turno: {battle.turn}, Acción P1: {action_p1}, Acción P2: {action_p2}")
-
             return self.action_to_order(action_p1, action_p2, battle)
         except Exception as e:
             print(f"Error: {e}")
             return self.choose_random_move(battle)
         
     def action_to_order(self, action_p1: int, action_p2: int, battle: DoubleBattle):
-        moves_p1 = battle.available_moves[0] if len(battle.available_moves) > 0 else []
-        moves_p2 = battle.available_moves[1] if len(battle.available_moves) > 1 else []
-        switches = battle.available_switches
-
-        #Primr Pokemon
-        if action_p1 <= 3 and action_p1 < len(moves_p1):
-            order_p1 = self.create_order(moves_p1[action_p1])
-        elif action_p1 <= 7:
-            idx = action_p1 - 4
-            order_p1 = self.create_order(switches[idx]) if idx < len(switches) else None
-        else:
-            order_p1 = None
-
-        #Segundo Pokemon
-        if action_p2 <= 3 and action_p2 < len(moves_p2):
-            order_p2 = self.create_order(moves_p2[action_p2])
-        elif action_p2 <= 7:
-            idx = action_p2 - 4
-            order_p2 = self.create_order(switches[idx]) if idx < len(switches) else None
-        else:
-            order_p2 = None
-
-        if order_p1 is None or order_p2 is None:
-            return self.choose_random_move(battle)
+        return self.choose_random_move(battle)
+        order_p2 = self.choose_random_move(battle)
 
         return DoubleBattleOrder(
             first_order=order_p1,
             second_order=order_p2
         )
+    
+    def get_valid_moves(self, battle: DoubleBattle, input_action: int, pokemon_int: int):
+        available_moves = battle.available_moves[pokemon_int]
+        if input_action < len(available_moves):
+            return available_moves[input_action]
+        else:
+            return None
