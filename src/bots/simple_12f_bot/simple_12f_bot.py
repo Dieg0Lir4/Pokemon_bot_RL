@@ -31,6 +31,10 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
                     done
                 )
                 self.agent.replay()
+                
+                if done:
+                    if self.agent.epsilon > self.agent.epsilon_min:
+                        self.agent.epsilon *= self.agent.epsilon_decay
 
             self.last_state = state
             self.last_action = action

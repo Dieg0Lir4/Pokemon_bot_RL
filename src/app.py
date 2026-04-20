@@ -4,8 +4,8 @@ from bots.simple_12f_bot.simple_12f_bot import Simple12fBot
 from enviorment.team.my_team import MY_TEAM
 from poke_env.player import RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer
 
-TOTAL_BATTLES = 100
-VALIDATE_EVERY = 20
+TOTAL_BATTLES = 5000
+VALIDATE_EVERY = 200
 VALIDATION_BATTLES = 50
 
 
