@@ -9,7 +9,7 @@ class DQNAgent:
         self.gamma = 0.99
         self.epsilon = 1.0
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.995
+        self.epsilon_decay = 0.9975
         self.batch_size = 64
 
         self.memory = deque(maxlen=10000)
