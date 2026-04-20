@@ -7,7 +7,7 @@ def build_model():
         tf.keras.layers.Dense(256, activation="relu"),
         tf.keras.layers.Dense(128, activation="relu"),
         tf.keras.layers.Dense(64, activation="relu"),
-        tf.keras.layers.Dense(16, activation="linear")
+        tf.keras.layers.Dense(3, activation="linear")
     ])
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),

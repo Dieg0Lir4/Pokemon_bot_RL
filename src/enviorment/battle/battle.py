@@ -12,8 +12,8 @@ def get_features(battle: DoubleBattle) -> np.ndarray:
     hp_opp_1 = opp[0].current_hp_fraction if opp[0] else 0.0
     hp_opp_2 = opp[1].current_hp_fraction if opp[1] else 0.0
 
-    moves_p1 = own[0].moves
-    moves_p2 = own[1].moves
+    moves_p1 = own[0].moves if own[0] else {}
+    moves_p2 = own[1].moves if own[1] else {}
 
     if not moves_p1:
         move_vector_p1 = np.zeros(4)
