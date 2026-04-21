@@ -12,17 +12,16 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
         self.last_state = None
         self.last_action = None
         super().__init__(**kwargs)
-        self.got_stuck_1 = False
-        self.got_stuck_2 = False
 
     def choose_move(self, battle):
         try:
+            self.battle_finised = battle
             state = get_features(battle)
             action = self.agent.act(state)
 
             if self.last_state is not None:
-                reward = get_reward(battle)
-                done = battle.finished
+                reward = 0
+                done = 0
                 self.agent.remember(
                     self.last_state,
                     self.last_action,
@@ -30,13 +29,7 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
                     state,
                     done
                 )
-                #self.agent.replay()
                 
-                if done:
-                    self.agent.replay() 
-                    if self.agent.epsilon > self.agent.epsilon_min:
-                        self.agent.epsilon *= self.agent.epsilon_decay
-
             self.last_state = state
             self.last_action = action
 
@@ -57,35 +50,5 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
             print(f"Invalid action: {action}. Defaulting to random move.")
             return self.choose_random_doubles_move(battle)
 
-
-
-    
-    def attack(self, battle: DoubleBattle, input_action: int, pokemon_int: int):
-        available_moves = battle.available_moves[pokemon_int]
-        if not available_moves:
-            return None
-                
-        opponent_active = battle.opponent_active_pokemon
-        if not opponent_active:
-            return None
-        
-        selected_index = random.choice(opponent_active)
-        selected_target = opponent_active.index(selected_index) + 1
-
-        selected_move = None
-        move_index = input_action % len(available_moves)
-        selected_move = available_moves[move_index]
-        
-        if selected_move is None:
-            print(f"No se pudo seleccionar un movimiento para el Pokémon {pokemon_int} con input_action {input_action}")
-            return None
-        
-        if selected_target is None:
-            print(f"No se pudo seleccionar un objetivo para el Pokémon {pokemon_int} con input_action {input_action}")
-            return None
-        
-
-        print("SKLJDFSLKÑDJF", selected_move)
-        return self.create_order(selected_move);
 
 
