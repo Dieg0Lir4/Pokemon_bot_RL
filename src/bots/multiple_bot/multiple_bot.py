@@ -4,16 +4,15 @@ from poke_env.battle import DoubleBattle
 from poke_env.player import RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer
 from enviorment.battle.battle import get_features, get_reward
 from agents.simple_12f_agent.simple_12f_agent import DQNAgent
+from poke_env.player.battle_order import DoubleBattleOrder
 import random
 
-class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
+class MultipleBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
     def __init__(self, **kwargs):
         self.agent = DQNAgent()
         self.last_state = None
         self.last_action = None
         super().__init__(**kwargs)
-        self.got_stuck_1 = False
-        self.got_stuck_2 = False
 
     def choose_move(self, battle):
         try:
@@ -30,10 +29,9 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
                     state,
                     done
                 )
-                #self.agent.replay()
+                self.agent.replay()
                 
                 if done:
-                    self.agent.replay() 
                     if self.agent.epsilon > self.agent.epsilon_min:
                         self.agent.epsilon *= self.agent.epsilon_decay
 
@@ -47,8 +45,9 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
         
     def action_to_order(self, action: int, battle: DoubleBattle):
 
+        
         if action == 0:
-            return RandomPlayer.choose_move(self, battle)
+            return self.attack(battle)
         elif action == 1:
             return MaxBasePowerPlayer.choose_move(self, battle)
         elif action == 2:
@@ -60,8 +59,24 @@ class Simple12fBot(RandomPlayer, SimpleHeuristicsPlayer, MaxBasePowerPlayer):
 
 
     
-    def attack(self, battle: DoubleBattle, input_action: int, pokemon_int: int):
-        available_moves = battle.available_moves[pokemon_int]
+    def attack(self, battle: DoubleBattle):
+
+        print("Turno", battle.turn)
+        print("Available pokemon:", battle.active_pokemon)
+        available_moves = battle.available_moves
+
+        available_moves_pokemon_0 = available_moves[0]
+        available_moves_pokemon_1 = available_moves[1]
+
+
+        if not (available_moves_pokemon_0 and available_moves_pokemon_1):
+            print("No bro la trolaste")
+            return SimpleHeuristicsPlayer.choose_move(self, battle)
+        
+        order = DoubleBattleOrder(self.create_order(available_moves_pokemon_0[0]), self.create_order(available_moves_pokemon_1[0]))
+        return order
+
+        ava
         if not available_moves:
             return None
                 
