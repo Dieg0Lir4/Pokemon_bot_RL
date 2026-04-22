@@ -4,9 +4,9 @@ from bots.simple_12f_bot.simple_12f_bot import Simple12fBot
 from enviorment.team.my_team import MY_TEAM
 from poke_env.player import SimpleHeuristicsPlayer
 
-TOTAL_BATTLES = 100
-VALIDATE_EVERY = 20
-VALIDATION_BATTLES = 5
+TOTAL_BATTLES = 1000000
+VALIDATE_EVERY = 200
+VALIDATION_BATTLES = 50
 
 async def main():
     bot1 = Simple12fBot(team=MY_TEAM, battle_format="gen9championsvgc2026regma")

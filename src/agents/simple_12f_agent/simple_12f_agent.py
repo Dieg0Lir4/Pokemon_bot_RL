@@ -37,7 +37,6 @@ class DQNAgent:
 
         minibatch = list(self.memory)[-last_battle:]
 
-        print(f"Aprendiendo de {len(minibatch)} turnos")
         self.episode_memory = []
 
 
