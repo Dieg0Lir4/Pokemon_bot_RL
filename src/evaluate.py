@@ -24,7 +24,7 @@ class EvaluationBot(Simple12fBot):
 
 async def main():
     bot = EvaluationBot(team=MY_TEAM, battle_format="gen9championsvgc2026regma")
-    bot.agent.load("checkpoints/model_25.keras")
+    bot.agent.load("checkpoints/model2/model2_5000.keras")
     bot.agent.epsilon = 0.0
 
     opponent = SimpleHeuristicsPlayer(team=MY_TEAM, battle_format="gen9championsvgc2026regma")
@@ -40,7 +40,7 @@ async def main():
     plt.xlabel("Estrategia")
     plt.ylabel("Veces elegida")
     plt.title("Acciones elegidas en 100 batallas")
-    plt.savefig("resultados/acciones.png")
+    plt.savefig("resultados/acciones_modelo2.png")
     plt.show()
     print(f"Victorias: {bot.n_won_battles} de 100")
 
