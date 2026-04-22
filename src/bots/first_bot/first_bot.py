@@ -7,6 +7,10 @@ class FirstMovePlayer(RandomPlayer):
         if isinstance(battle, DoubleBattle):
             orders = []
             for i in range(2):
+
+                print("Moveset:", battle.active_pokemon[i].moves)
+                print("Available moves:", battle.available_moves[i])
+
                 moves = battle.available_moves[i] if i < len(battle.available_moves) else []
                 switches = battle.available_switches[i] if i < len(battle.available_switches) else []
 
